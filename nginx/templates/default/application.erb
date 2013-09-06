@@ -7,7 +7,7 @@ upstream django {
 server {
   listen       80;
   server_name  _;
-  root        <%= node[:deploy][:deploy_to] %>;
+  root        <%= deploy[:deploy_to] %>;
   access_log  <%= node[:nginx][:log_dir] %>/application.access.log;
   error_log  <%= node[:nginx][:log_dir] %>/application.error.log;
 
