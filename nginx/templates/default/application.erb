@@ -1,15 +1,15 @@
 # Gunicorn server
 upstream django {
-  server         localhost:<% @nginx[:serve_port] %>;
+  server         localhost:<% @serve_port %>;
 }
 
 # Serve static files and redirect any other request to Gunicorn
 server {
   listen       80;
   server_name  _;
-  root        <% @deploy[:deploy_to] %>;
-  access_log  <% @nginx[:log_dir] %>/<% @deploy[:application] %>.access.log;
-  error_log  <% @nginx[:log_dir] %>/<% @deploy[:application] %>.error.log;
+  root        <% @root_dir %>;
+  access_log  <% @log_dir %>/<% @app_name %>.access.log;
+  error_log  <% @log_dir %>/<% @app_name %>.error.log;
 
   # Check if a file exists at /var/www/domain/ for the incoming request.
   # If it doesn't proxy to Gunicorn/Django.
@@ -24,3 +24,5 @@ server {
     proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
   }
 }
+
+
