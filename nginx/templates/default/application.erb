@@ -7,9 +7,9 @@ upstream django {
 server {
   listen       80;
   server_name  _;
-  root        <%= @root_dir %>;
-  access_log  <%= @log_dir %>/<%= @app_name %>.access.log;
-  error_log  <%= @log_dir %>/<%= @app_name %>.error.log;
+  root        <%= node[:deploy][:deploy_to] %>;
+  access_log  <%= node[:nginx][:log_dir] %>/application.access.log;
+  error_log  <%= node[:nginx][:log_dir] %>/application.error.log;
 
   # Check if a file exists at /var/www/domain/ for the incoming request.
   # If it doesn't proxy to Gunicorn/Django.
